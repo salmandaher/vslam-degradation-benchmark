@@ -1,0 +1,47 @@
+{
+  "isaac_sim": "5.1.0-rc.19+release.26219.9c81211b.gl",
+  "smoke": true,
+  "frames_captured": 24,
+  "frames_full": 2250,
+  "resolution": [
+    640,
+    480
+  ],
+  "fps": 30,
+  "duration_s": 75.0,
+  "baseline_m": 0.12,
+  "seed": 0,
+  "rt_subframes": 32,
+  "meters_per_unit": 1.0,
+  "up_axis": "Z",
+  "vram_mib": {
+    "after_app_start": 1976,
+    "after_scene_load": 1240,
+    "after_warmup": 2719,
+    "after_render": 2818
+  },
+  "mean_ms_per_frame": 970.1887468496958,
+  "wall_clock_s": 100.17934441566467,
+  "image_saver": "PIL",
+  "intrinsics": {
+    "model": "pinhole",
+    "width": 640,
+    "height": 480,
+    "fx": 320.0,
+    "fy": 320.0,
+    "cx": 320.0,
+    "cy": 240.0,
+    "distortion": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseline_m": 0.12,
+    "fps": 30,
+    "hfov_deg": 90.0,
+    "camera_frame": "optical RDF (x-right, y-down, z-forward)",
+    "left_is_reference": true
+  }
+}

@@ -1,0 +1,13 @@
+model: pinhole
+width: 640
+height: 480
+fx: 320.0
+fy: 320.0
+cx: 320.0
+cy: 240.0
+distortion: [0, 0, 0, 0, 0]
+baseline_m: 0.12
+fps: 30
+hfov_deg: 90.0
+camera_frame: optical RDF (x-right, y-down, z-forward)
+left_is_reference: True

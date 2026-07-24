@@ -1,0 +1,18 @@
+# --- regenerable caches (redirected here to spare the near-full root fs) ---
+bench_cache/
+**/__pycache__/
+*.pyc
+
+# --- bulk render outputs (reproducible from scripts/render_scene.py) ---
+data/clean/left/
+data/clean/right/
+data/clean/groundtruth_tum.txt
+data/clean/times.txt
+data/degraded/
+
+# --- verbose simulator logs (numeric summary is kept in render_meta_*.json) ---
+results/raw/*.log
+review/
+
+# --- os ---
+.DS_Store
