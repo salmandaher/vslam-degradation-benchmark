@@ -15,13 +15,13 @@
   "meters_per_unit": 1.0,
   "up_axis": "Z",
   "vram_mib": {
-    "after_app_start": 1976,
-    "after_scene_load": 1240,
-    "after_warmup": 2719,
-    "after_render": 2818
+    "after_app_start": 1968,
+    "after_scene_load": 1239,
+    "after_warmup": 2717,
+    "after_render": 2822
   },
-  "mean_ms_per_frame": 970.1887468496958,
-  "wall_clock_s": 100.17934441566467,
+  "mean_ms_per_frame": 991.4383689562479,
+  "wall_clock_s": 87.21051692962646,
   "image_saver": "PIL",
   "intrinsics": {
     "model": "pinhole",

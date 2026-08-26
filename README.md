@@ -67,8 +67,14 @@ built-in **Simple Warehouse** and exports exact ground-truth poses:
 ### Validation evidence
 
 Measured on a 24-frame validation render spanning the full path: **peak VRAM
-2.8 GB**, ~0.97 s/frame → full render ≈ **36 min, ≈ 1.4 GB**. meters_per_unit=1.0
+2.8 GB**, ~0.99 s/frame → full render ≈ **37 min, ≈ 1.4 GB**. meters_per_unit=1.0
 and Z-up were verified from the stage (not assumed).
+
+**Scene** — top-down view of the Simple Warehouse from 7 m, showing the open bay
+the figure-eight is flown through, with shelving and stacked pallets along the
+west wall providing the texture the stereo matcher keys off.
+
+![Top-down scene overview](docs/figures/phase1_overview_topdown.png)
 
 **Trajectory** — figure-eight top-down with heading arrows, and position vs time.
 The centre self-intersection is crossed three times with different headings,
@@ -77,7 +83,7 @@ which is what makes the loop-closure revisits genuine rather than a retraced pat
 ![Camera trajectory](docs/figures/phase1_trajectory.png)
 
 **Render budget** — VRAM by stage against the 8 GB card, plus the render
-configuration. Peak 2818 MiB is 34 % of available VRAM, leaving headroom for the
+configuration. Peak 2822 MiB is 34 % of available VRAM, leaving headroom for the
 SLAM systems that will run against these frames in later phases.
 
 ![Render statistics](docs/figures/phase1_render_stats.png)
@@ -113,7 +119,7 @@ export OMNI_KIT_ACCEPT_EULA=YES
 
 # quick pipeline check (~24 frames + overview, ~2 min):
 /DataDrive/isaac-sim/python.sh scripts/render_scene.py --smoke
-# full clean dataset (2250 stereo pairs, ~36 min):
+# full clean dataset (2250 stereo pairs, ~37 min):
 /DataDrive/isaac-sim/python.sh scripts/render_scene.py
 
 # regenerate figures from a rendered dataset:

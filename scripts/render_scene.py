@@ -38,6 +38,8 @@ CONFIG = {
     "seed":           0,
     # smoke test
     "smoke_frames":   24,       # spread across the WHOLE trajectory (not just the start)
+    "overview_height_m": 7.0,   # top-down inspection camera; MUST stay below the
+                                #   warehouse roof (~8 m) or it images the roof
 }
 # -----------------------------------------------------------------------------
 
@@ -249,11 +251,16 @@ def main():
         ov.CreateClippingRangeAttr(Gf.Vec2f(0.1 * m2u, 2000.0 * m2u))
         xf = UsdGeom.Xformable(ov.GetPrim()); xf.ClearXformOpOrder(); ov_op = xf.AddTransformOp()
         cx, cy = C["center_m"]
-        # look straight down from 18 m
-        R_down = np.array([[1, 0, 0], [0, -1, 0], [0, 0, -1]], float)  # x-right, y=-Y, z=-down
-        Md = Gf.Matrix4d(); Md.SetRotate(Gf.Rotation(Gf.Quatd(1, Gf.Vec3d(0, 0, 0))))
-        # orient camera to look down -Z world: rotate 90deg? simplest: place high, USD cam looks -Z => looks down already
-        Md = Gf.Matrix4d(); Md.SetTranslateOnly(Gf.Vec3d(cx * m2u, cy * m2u, 18.0 * m2u)); ov_op.Set(Md)
+        # A USD camera looks down its own -Z. The stage is Z-up, so an identity
+        # rotation already points it straight down; only translation is needed.
+        #
+        # Height matters: the Simple Warehouse is an INDOOR scene with a solid
+        # roof at roughly 8 m. The previous value of 18 m put the camera outside
+        # the building, so every capture was the unlit corrugated roof from above
+        # -- a black frame of horizontal stripes. Stay under the ceiling.
+        Md = Gf.Matrix4d()
+        Md.SetTranslateOnly(Gf.Vec3d(cx * m2u, cy * m2u, C["overview_height_m"] * m2u))
+        ov_op.Set(Md)
         rp_ov = rep.create.render_product("/World/cam_overview", (720, 720))
         ann_ov = rep.AnnotatorRegistry.get_annotator("rgb"); ann_ov.attach(rp_ov)
         rep.orchestrator.step(rt_subframes=C["rt_subframes"], delta_time=0.0, pause_timeline=False)

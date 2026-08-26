@@ -40,3 +40,20 @@
 - `scripts/plot_trajectory.py` — CHECKPOINT 1 visuals
 - `docs/figures/phase1_{trajectory,sample_frames,overview_topdown}.png`
 - `data/clean/` — 24-frame validation set (will be overwritten by full render)
+
+## Fix — top-down overview figure (2026-08-26)
+- `phase1_overview_topdown.png` was a black frame of horizontal stripes. Cause: the
+  overview camera sat at 18 m, but the Simple Warehouse is an indoor scene whose
+  world bbox tops out at **z = 9.30 m** — the camera was outside the building and
+  imaging the unlit corrugated roof.
+- Fixed in `render_scene.py`: overview height is now a CONFIG value
+  (`overview_height_m = 7.0`, under the ~9.3 m roof). Also deleted dead code — an
+  `R_down` matrix that was computed and never applied, plus a discarded first
+  `Md`; the identity rotation already points a USD camera down -Z in a Z-up stage.
+- Re-ran `--smoke` (exit 0, 24 frames): overview now shows the warehouse floor,
+  shelving, and the open bay the figure-eight is flown through.
+- Regenerated all dependent figures so they match the committed metadata.
+  Refreshed numbers: peak VRAM **2822 MiB** (was 2818), **991 ms/frame** (was 970),
+  projected full render **≈37 min**. README updated to match.
+- Embedded all five figures in the README — they were committed but only ever
+  listed by filename, so nothing rendered on the repo page.
