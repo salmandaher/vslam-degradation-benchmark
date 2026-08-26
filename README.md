@@ -64,17 +64,36 @@ built-in **Simple Warehouse** and exports exact ground-truth poses:
 - **Ground truth:** left-camera optical-frame (x-right, y-down, z-forward) pose
   per frame, **TUM format** `timestamp tx ty tz qx qy qz qw` (meters).
 
-### Validation evidence (`docs/figures/`)
-| Figure | Shows |
-|---|---|
-| `phase1_sample_frames.png` | 3 stereo pairs — well-lit, feature-rich, clear disparity |
-| `phase1_trajectory.png` | figure-eight top-down (heading arrows) + position vs time |
-| `phase1_stereo_anaglyph.png` | red-cyan anaglyph — visual proof of horizontal disparity |
-| `phase1_render_stats.png` | VRAM by stage (**peak 2.8 GB / 8 GB**) + render budget |
+### Validation evidence
 
 Measured on a 24-frame validation render spanning the full path: **peak VRAM
 2.8 GB**, ~0.97 s/frame → full render ≈ **36 min, ≈ 1.4 GB**. meters_per_unit=1.0
 and Z-up were verified from the stage (not assumed).
+
+**Trajectory** — figure-eight top-down with heading arrows, and position vs time.
+The centre self-intersection is crossed three times with different headings,
+which is what makes the loop-closure revisits genuine rather than a retraced path.
+
+![Camera trajectory](docs/figures/phase1_trajectory.png)
+
+**Render budget** — VRAM by stage against the 8 GB card, plus the render
+configuration. Peak 2818 MiB is 34 % of available VRAM, leaving headroom for the
+SLAM systems that will run against these frames in later phases.
+
+![Render statistics](docs/figures/phase1_render_stats.png)
+
+**Sample stereo pairs** — frames 0, 1075, and 2249, spanning the full path. The
+warehouse is well-lit and feature-rich: shelving, floor markings, and structural
+columns give a stereo matcher plenty to work with. That matters because the clean
+baseline has to be *easy* for degradation to be measurable against it.
+
+![Sample stereo frames](docs/figures/phase1_sample_frames.png)
+
+**Stereo disparity check** — red-cyan anaglyph of a single pair. Colour fringing
+scales with depth (wide on near shelving, narrow on the far wall), confirming the
+rig produces correct horizontal disparity rather than two near-identical views.
+
+![Stereo anaglyph](docs/figures/phase1_stereo_anaglyph.png)
 
 ---
 
